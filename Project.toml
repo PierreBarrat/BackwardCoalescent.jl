@@ -1,0 +1,8 @@
+name = "BackwardCoalescent"
+uuid = "78ba55dc-45b1-42ca-b7d8-98224de7860d"
+authors = ["PierreBarrat <p.barrat@live.fr>"]
+version = "0.1.0"
+
+[deps]
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+TreeTools = "62f0eae3-8c0e-4032-a621-7756092209e5"
