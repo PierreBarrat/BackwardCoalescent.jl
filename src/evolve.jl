@@ -53,7 +53,7 @@ function merge!(nodes, ids, τ)
 	# Merging nodes
 	r = TreeNode(label="internal_$(get_id())")
 	for n in nodes[ids]
-		graftnode!(r, n)
+		TreeTools.graftnode!(r, n)
 	end
 	deleteat!(nodes, ids)
 	push!(nodes, r)
