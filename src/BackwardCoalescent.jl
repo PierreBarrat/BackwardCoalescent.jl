@@ -8,6 +8,6 @@ export Coalescent
 export EFCoalescent, KingmanCoalescent, SEFCoalescent
 
 include("evolve.jl")
-export genealogy
+export coalescence_times, genealogy
 
 end # module

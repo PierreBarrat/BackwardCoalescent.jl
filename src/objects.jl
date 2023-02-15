@@ -35,8 +35,8 @@ Stochastic EF coalescent. At each step, β is chosen from a distribution.
 	ρ::Float64
 ```
 """
-mutable struct SEFCoalescent <: Coalescent
+mutable struct SEFCoalescent{T<:UnivariateDistribution} <: Coalescent
 	n::Int
-	β::Distribution
+	β::T
 	ρ::Float64
 end
