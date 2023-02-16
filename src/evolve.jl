@@ -89,14 +89,10 @@ function choose_event(C::EFCoalescent)
 	@assert C.n > 1 "Cannot choose coalescence event for one lineage." C
 	τ = 0.
 	merger = 0
+	coin = Binomial(C.n, C.β)
 	while merger < 2
-		merger = 0
 		τ += rand(Exponential(1/C.ρ))
-		for i in 1:C.n
-			if rand() < C.β
-				merger += 1
-			end
-		end
+		merger = rand(coin)
 	end
 	return merger, τ
 end
@@ -106,18 +102,15 @@ function choose_event(C::SEFCoalescent)
 	τ = 0.
 	merger = 0
 	while merger < 2
-		merger = 0
 		τ += rand(Exponential(1/C.ρ))
 		βval = rand(C.β)
+		coin = Binomial(C.n, βval)
+		merger = rand(coin)
 		@debug "`SEFCoalescent`: using β=$(βval)"
-		for i in 1:C.n
-			if rand() < βval
-				merger += 1
-			end
-		end
 	end
 	return merger, τ
 end
+
 
 function choose_event(C::KingmanCoalescent)
 	@assert C.n > 1 "Cannot choose coalescence event for one lineage." C
