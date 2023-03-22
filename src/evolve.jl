@@ -27,7 +27,8 @@ function genealogy!(nodes::Vector{<:TreeNode}, C::Coalescent, T = Dict())
 	merger_size, τ = choose_event(C) # number of nodes to be coalesced and time to event
 	@debug "Coalescence of $(merger_size) nodes at time $τ"
 	T[C.n] = τ
-	new_nodes = merge!(nodes, 1:merger_size, τ)
+	merged_ids = sample(eachindex(nodes), merger_size, replace=false, ordered=true)
+	new_nodes = merge!(nodes, merged_ids, τ)
 	C.n += -merger_size + 1 # k lineages merge into one
 	@assert C.n == length(nodes) "Inconsistent number of remaining lineages: \
 		$(C.n) vs. $(length(nodes))"

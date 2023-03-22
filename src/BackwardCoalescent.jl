@@ -1,6 +1,7 @@
 module BackwardCoalescent
 
 using Distributions
+using StatsBase
 using TreeTools
 
 include("objects.jl")
