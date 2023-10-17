@@ -5,9 +5,9 @@ Return a tree sampled from the coalescent `C`. If `coalescence_times`, also retu
 times `Tn` during which `n` lineages are present, in the form of a dictionary `n => Tn`.
 
 ## Examples
-For the EF coalescent with parameters `β` and `ρ` and `n=100` lineages:
+For the Kingman coalescent with population size `N` and `n=100` lineages:
 ```
-tree = genealogy(EFCoalescent(100, β, ρ))
+tree = genealogy(KingmanCoalescent(100, N))
 ```
 """
 function genealogy(C::Coalescent; coalescence_times = false)
@@ -84,39 +84,6 @@ function tree_height!(C::Coalescent, H)
 	else
 		return tree_height!(C, H)
 	end
-end
-
-function choose_event(C::EFCoalescent)
-	@assert C.n > 1 "Cannot choose coalescence event for one lineage." C
-	τ = 0.
-	merger = 0
-	coin = Binomial(C.n, C.β)
-	while merger < 2
-		τ += rand(Exponential(1/C.ρ))
-		merger = rand(coin)
-	end
-	return merger, τ
-end
-
-function choose_event(C::SEFCoalescent)
-	@assert C.n > 1 "Cannot choose coalescence event for one lineage." C
-	τ = 0.
-	merger = 0
-	while merger < 2
-		τ += rand(Exponential(1/C.ρ))
-		βval = rand(C.β)
-		coin = Binomial(C.n, βval)
-		merger = rand(coin)
-		@debug "`SEFCoalescent`: using β=$(βval)"
-	end
-	return merger, τ
-end
-
-
-function choose_event(C::KingmanCoalescent)
-	@assert C.n > 1 "Cannot choose coalescence event for one lineage." C
-	τ = rand(Exponential(2*C.N/C.n/(C.n-1)))
-	return 2, τ
 end
 
 let i = 0
