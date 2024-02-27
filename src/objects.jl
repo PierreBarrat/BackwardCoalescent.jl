@@ -11,6 +11,12 @@ function choose_event(C::KingmanCoalescent)
     return 2, τ
 end
 
+"""
+    mutable struct YuleCoalescent
+
+Rate of coalescence `(n-1)b`.
+The expected heigh of the tree is (I think) `~log(n)/b`
+"""
 @kwdef mutable struct YuleCoalescent <: Coalescent
     n::Int = 2
     b::Float64 = 1 # birth rate
