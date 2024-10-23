@@ -14,6 +14,10 @@ end
 """
     mutable struct YuleCoalescent
 
+```julia
+n::Int = 2
+b::Float64 = 1 # birth rate
+```
 Rate of coalescence `(n-1)b`.
 The expected heigh of the tree is (I think) `~log(n)/b`
 """
